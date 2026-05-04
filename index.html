@@ -1092,10 +1092,6 @@ function gerarTemplate() {
   setTimeout(() => output.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
-function copiarTemplate() {
-  const nome = document.getElementById('out-nome').textContent;
-  const cargo = document.getElementById('out-cargo').textContent;
-  const dev = document.getElementById('out-dev').textContent;
 
   const acoes = Array.from(document.querySelectorAll('.action-card')).map(card => {
     const pct = card.querySelector('.action-src div')?.textContent || '';
