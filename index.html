@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Prático de PDI · Yandeh</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #ff00b0;
+  --orange: #ff5100;
+  --dark: #0F0A1E;
+  --dark2: #1A1030;
+  --white: #FAFAF8;
+  --gray: #F4F3EF;
+  --mid: #888;
+  --border: #E5E4DF;
+  --pink-light: #FFF0F7;
+  --orange-light: #FFF5EE;
+  --green: #00A878;
+  --green-light: #EDFAF5;
+  --purple: #ff0e6f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,250,248,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+.nav-links { display: flex; gap: 6px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; color: var(--mid);
+  text-decoration: none; padding: 5px 10px; border-radius: 20px;
+  transition: all .2s;
+}
+.nav-links a:hover { background: var(--gray); color: var(--dark); }
+.nav-cta {
+  background: var(--pink); color: #fff; border: none; border-radius: 20px;
+  padding: 8px 18px; font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,0,110,.35); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--dark);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 120px 40px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #3D0F5A 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 85% 80%, rgba(242,101,34,.15) 0%, transparent 60%),
+              radial-gradient(ellipse 30% 30% at 10% 70%, rgba(232,0,110,.12) 0%, transparent 60%);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 30px; padding: 6px 16px; margin-bottom: 32px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.7);
+  animation: fadeUp .6s ease both;
+}
+.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); }
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(44px, 7vw, 88px); line-height: 1.05;
+  color: #fff; margin-bottom: 12px;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero h1 em { color: var(--pink); font-style: normal; }
+.hero-sub {
+  font-size: 18px; color: rgba(255,255,255,.55); max-width: 520px;
+  line-height: 1.65; margin-bottom: 48px;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; animation: fadeUp .7s .3s ease both; }
+.btn-primary {
+  background: var(--pink); color: #fff; border: none;
+  border-radius: 30px; padding: 14px 28px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,0,110,.4); }
+.btn-outline {
+  background: transparent; color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.25); border-radius: 30px;
+  padding: 14px 28px; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block;
+}
+.btn-outline:hover { background: rgba(255,255,255,.08); }
+
+.hero-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 48px; animation: fadeUp .7s .4s ease both; }
+.chip {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; padding: 6px 14px; font-size: 11px; color: rgba(255,255,255,.5);
+}
+
+/* ─── SECTION LAYOUT ─── */
+section { padding: 96px 40px; max-width: 1080px; margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 16px;
+}
+.section-label::before { content: ''; width: 20px; height: 2px; background: var(--pink); }
+h2.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px, 4vw, 48px); line-height: 1.1; margin-bottom: 16px;
+}
+.section-sub { font-size: 16px; color: var(--mid); line-height: 1.7; max-width: 560px; margin-bottom: 56px; }
+
+/* ─── DIVIDER ─── */
+.divider { height: 1px; background: var(--border); max-width: 1080px; margin: 0 auto; }
+
+/* ─── CHA CARDS ─── */
+.cha-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cha-card {
+  border-radius: 20px; padding: 36px 28px; position: relative; overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.cha-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,.1); }
+.cha-card.c { background: linear-gradient(135deg, #FFF0F7 0%, #FECDD3 100%); }
+.cha-card.h { background: linear-gradient(135deg, #ffeef8 0%, #ffdbe9 100%); }
+.cha-card.a { background: linear-gradient(135deg, #fff9f3 0%, #fedbbb 100%); }
+.cha-letter {
+  font-family: 'DM Serif Display', serif;
+  font-size: 80px; line-height: 1; font-weight: 400;
+  position: absolute; top: 16px; right: 24px; opacity: .15;
+}
+.cha-card.c .cha-letter { color: var(--pink); }
+.cha-card.h .cha-letter { color: #fb006d; }
+.cha-card.a .cha-letter { color: var(--orange); }
+.cha-pill {
+  display: inline-block; border-radius: 20px; padding: 4px 12px;
+  font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cha-card.c .cha-pill { background: var(--pink); color: #fff; }
+.cha-card.h .cha-pill { background: #fb006d; color: #fff; }
+.cha-card.a .cha-pill { background: var(--orange); color: #fff; }
+.cha-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.cha-card .sub { font-size: 12px; color: var(--mid); margin-bottom: 20px; font-style: italic; }
+.cha-card p { font-size: 14px; line-height: 1.7; color: #333; margin-bottom: 20px; }
+.cha-examples { list-style: none; }
+.cha-examples li {
+  font-size: 13px; color: #444; padding: 6px 0;
+  border-top: 1px solid rgba(0,0,0,.07); display: flex; align-items: flex-start; gap: 8px;
+}
+.cha-examples li::before { content: '→'; font-size: 11px; margin-top: 2px; opacity: .5; flex-shrink: 0; }
+
+/* ─── 70|20|10 ─── */
+.modelo-grid { display: flex; flex-direction: column; gap: 16px; }
+.modelo-block {
+  display: grid; grid-template-columns: 140px 1fr 1fr;
+  border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+  transition: box-shadow .2s;
+}
+.modelo-block:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); }
+.modelo-pct {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 32px 20px; gap: 6px;
+}
+.modelo-block.m70 .modelo-pct { background: linear-gradient(160deg, #e8009b, #f22279); }
+.modelo-block.m20 .modelo-pct { background: linear-gradient(160deg, #f22279, var(--orange)); }
+.modelo-block.m10 .modelo-pct { background: linear-gradient(160deg, var(--orange), #c74200); }
+.modelo-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 48px; line-height: 1; color: #fff;
+}
+.modelo-pct-label { font-size: 10px; color: rgba(255,255,255,.7); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+.modelo-content { padding: 28px; border-right: 1px solid var(--border); }
+.modelo-content h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.modelo-content .tag { font-size: 11px; color: var(--mid); margin-bottom: 12px; display: block; }
+.modelo-content p { font-size: 13px; color: #444; line-height: 1.7; }
+.modelo-examples { padding: 28px; }
+.modelo-examples .ex-label { font-size: 11px; color: var(--mid); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 12px; }
+.modelo-examples ul { list-style: none; }
+.modelo-examples li { font-size: 13px; color: #333; padding: 5px 0; display: flex; gap: 8px; }
+.modelo-examples li::before { content: '·'; color: var(--pink); font-weight: 700; }
+
+/* ─── MATRIX ─── */
+.matrix-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+.matrix {
+  width: 100%; border-collapse: collapse; min-width: 640px;
+}
+.matrix th, .matrix td { padding: 16px 20px; text-align: left; font-size: 13px; }
+.matrix thead tr { border-bottom: 1px solid var(--border); }
+.matrix th { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.matrix th:nth-child(1) { background: var(--dark); color: #fff; }
+.matrix th:nth-child(2) { background: var(--pink); color: #fff; }
+.matrix th:nth-child(3) { background: var(--purple); color: #fff; }
+.matrix th:nth-child(4) { background: #6B21A8; color: #fff; }
+.matrix td { border-bottom: 1px solid var(--border); color: #333; line-height: 1.6; }
+.matrix td:nth-child(1) { font-weight: 600; background: var(--gray); }
+.matrix tbody tr:last-child td { border-bottom: none; }
+.matrix tbody tr:hover td { background: rgba(232,0,110,.03); }
+.cha-badge-sm {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  font-size: 11px; font-weight: 700; color: #fff; margin-right: 8px; vertical-align: middle;
+}
+
+/* ─── COMPARE ─── */
+.compare-grid { display: flex; flex-direction: column; gap: 16px; }
+.compare-row { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; align-items: center; }
+.compare-bad {
+  background: #FFF1F2; border: 1px solid #FECDD3;
+  border-radius: 14px 0 0 14px; padding: 20px 24px;
+}
+.compare-mid { text-align: center; background: var(--gray); padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.compare-good {
+  background: #EDFAF5; border: 1px solid #A7F3D0;
+  border-radius: 0 14px 14px 0; padding: 20px 24px;
+}
+.compare-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.compare-bad .compare-label { color: #BE123C; }
+.compare-good .compare-label { color: #065F46; }
+.compare-text { font-size: 13px; line-height: 1.65; }
+.compare-bad .compare-text { color: #9F1239; }
+.compare-good .compare-text { color: #134E4A; }
+.arrow-icon { font-size: 20px; }
+
+/* ─── INSIGHT BOX ─── */
+.insight {
+  background: linear-gradient(135deg, #0F0A1E 0%, #1E0B35 100%);
+  border-radius: 20px; padding: 40px; margin: 48px 0;
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.insight-icon { font-size: 32px; flex-shrink: 0; margin-top: 4px; }
+.insight-text { color: rgba(255,255,255,.7); font-size: 15px; line-height: 1.75; }
+.insight-text strong { color: #fff; }
+
+/* ─── TEMPLATE FORM ─── */
+#criar { background: var(--dark); }
+#criar > .inner {
+  max-width: 860px; margin: 0 auto; padding: 96px 40px;
+}
+#criar .section-label { color: var(--pink); }
+#criar h2.section-title { color: #fff; }
+#criar .section-sub { color: rgba(255,255,255,.5); }
+
+.form-step {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px; padding: 32px; margin-bottom: 20px;
+}
+.step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.step-num {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #fff;
+}
+.step-num.pink { background: var(--pink); }
+.step-num.orange { background: var(--orange); }
+.step-num.purple { background: var(--purple); }
+.step-num.green { background: var(--green); }
+.step-title { font-size: 17px; font-weight: 600; color: #fff; }
+.step-desc { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+label { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+input[type="text"], textarea, select {
+  width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #fff;
+  font-family: 'DM Sans', sans-serif; outline: none; transition: border-color .2s;
+}
+input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,.3); }
+input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--pink); }
+select { appearance: none; cursor: pointer; }
+select option { background: #1a1a2e; color: #fff; }
+textarea { resize: vertical; min-height: 90px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-field { margin-bottom: 20px; }
+
+.radio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.radio-opt { position: relative; }
+.radio-opt input { position: absolute; opacity: 0; }
+.radio-opt label {
+  display: flex; flex-direction: column; gap: 4px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px; padding: 16px; cursor: pointer; transition: all .2s;
+  text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.7);
+}
+.radio-opt label span { font-size: 10px; color: rgba(255,255,255,.3); font-weight: 400; }
+.radio-opt input:checked + label { border-color: var(--pink); background: rgba(232,0,110,.12); color: #fff; }
+
+.cha-check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cha-check { position: relative; }
+.cha-check input { position: absolute; opacity: 0; }
+.cha-check label {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 14px; cursor: pointer; transition: all .2s;
+  text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.7);
+}
+.cha-check.c input:checked + label { border-color: var(--pink); background: rgba(232,0,110,.12); color: #fff; }
+.cha-check.h input:checked + label { border-color: #ea336d; background: rgba(242, 34, 121, 0.12); color: #fff; }
+.cha-check.a input:checked + label { border-color: var(--orange); background: rgba(234, 149, 51, 0.12); color: #fff; }
+.cha-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px; color: #fff; flex-shrink: 0;
+}
+
+.btn-generate {
+  width: 100%; padding: 18px; background: var(--pink); color: #fff; border: none;
+  border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer;
+  margin-top: 8px; transition: all .2s; font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-generate:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,0,110,.4); }
+
+/* ─── OUTPUT TEMPLATE ─── */
+#output { display: none; }
+.template-card {
+  background: #fff; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.15); margin-top: 40px;
+}
+.template-header {
+  background: linear-gradient(135deg, var(--dark) 0%, #2D1B4E 100%);
+  padding: 40px; position: relative; overflow: hidden;
+}
+.template-header::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(232,0,110,.15);
+}
+.template-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 20px; padding: 5px 12px; margin-bottom: 20px;
+  font-size: 11px; color: rgba(255,255,255,.6); font-weight: 500;
+}
+.template-name { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.template-role { font-size: 14px; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+.template-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+.meta-pill {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,.7);
+}
+.meta-pill strong { color: #fff; }
+
+.template-body { padding: 40px; }
+
+.dev-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--mid); margin-bottom: 24px; }
+
+.action-cards { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.action-card {
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border); display: grid;
+  grid-template-columns: 100px 1fr;
+}
+.action-src {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px 10px; gap: 4px; font-weight: 700; font-size: 18px; color: #fff;
+}
+.action-src.s70 { background: linear-gradient(180deg, var(--pink), var(--orange)); }
+.action-src.s20 { background: linear-gradient(180deg, var(--orange), #F59E0B); }
+.action-src.s10 { background: linear-gradient(180deg, var(--purple), #6366F1); }
+.action-src-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .7; }
+.action-content { padding: 20px 24px; }
+.action-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.action-title-out { font-size: 15px; font-weight: 600; color: var(--dark); }
+.action-cha-badges { display: flex; gap: 5px; flex-shrink: 0; }
+.cha-b {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #fff;
+}
+.cha-b.C { background: var(--pink); }
+.cha-b.H { background: var(--orange); }
+.cha-b.A { background: var(--purple); }
+.action-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.afield { background: var(--gray); border-radius: 8px; padding: 10px 14px; }
+.afield-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--mid); margin-bottom: 3px; }
+.afield-val { font-size: 12px; color: var(--dark); line-height: 1.5; }
+
+.kpi-section { margin-top: 32px; border-top: 1px solid var(--border); padding-top: 32px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.kpi-card { background: var(--gray); border-radius: 12px; padding: 18px; }
+.kpi-icon { font-size: 22px; margin-bottom: 8px; }
+.kpi-title { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+.kpi-desc { font-size: 11px; color: var(--mid); line-height: 1.5; }
+
+.template-footer {
+  background: var(--gray); padding: 24px 40px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border-top: 1px solid var(--border);
+}
+.footer-msg { font-size: 13px; color: var(--mid); }
+.btn-print {
+  background: var(--dark); color: #fff; border: none;
+  border-radius: 30px; padding: 10px 22px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-print:hover { transform: translateY(-1px); }
+.btn-copy {
+  background: var(--pink); color: #fff; border: none;
+  border-radius: 30px; padding: 10px 22px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--dark); color: rgba(255,255,255,.4);
+  text-align: center; padding: 40px; font-size: 13px;
+}
+footer strong { color: #fff; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── PRINT ─── */
+@media print {
+  nav, #criar, .hero, .divider, section:not(#output), footer { display: none !important; }
+  #output { display: block !important; }
+  .template-card { box-shadow: none; }
+}
+
+@media (max-width: 768px) {
+  .cha-grid, .form-row, .radio-grid, .cha-check-grid, .kpi-grid { grid-template-columns: 1fr; }
+  .compare-row { grid-template-columns: 1fr; }
+  .compare-mid { display: none; }
+  .compare-bad { border-radius: 12px; }
+  .compare-good { border-radius: 12px; }
+  .modelo-block { grid-template-columns: 100px 1fr; }
+  .modelo-examples { display: none; }
+  .action-fields { grid-template-columns: 1fr; }
+  section { padding: 64px 20px; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="nav-logo">
+  <img src="https://yandeh.com/lovable-uploads/a513a4d0-0c32-4025-a2b5-17117b62c424.png" alt="Yandeh">
+</div>
+  <div class="nav-links">
+    <a href="#cha">Metodologia CHA</a>
+    <a href="#modelo">Metodologia 70|20|10</a>
+    <a href="#matriz">CHA VS. 70|20|10</a>
+    <a href="#criar">Criar PDI</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('criar').scrollIntoView({behavior:'smooth'})">Criar meu PDI →</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag"><span class="hero-tag-dot"></span>Workshop PDI · Yandeh</div>
+  <h1>Guia Prático<br>de <em>PDI</em></h1>
+  <p class="hero-sub">Do diagnóstico à ação — construa seu Plano de Desenvolvimento Individual com clareza, método e impacto real.</p>
+  <div class="hero-btns">
+    <a href="#cha" class="btn-primary">Começar a ler →</a>
+    <a href="#criar" class="btn-outline">Criar meu PDI</a>
+  </div>
+  <div class="hero-chips">
+    <span class="chip">CHA — Conhecimento, Habilidade, Atitude</span>
+    <span class="chip">Modelo 70|20|10</span>
+    <span class="chip">Template interativo</span>
+  </div>
+</div>
+
+<!-- SEÇÃO CHA -->
+<section id="cha">
+  <div class="section-label">02 · Metodologia</div>
+  <h2 class="section-title">O CHA na prática</h2>
+  <p class="section-sub">Toda competência tem três dimensões. Sem entender isso, o PDI fica superficial — você sabe que precisa melhorar, mas não sabe <em>o quê</em> exatamente.</p>
+
+  <div class="cha-grid">
+    <div class="cha-card c reveal">
+      <div class="cha-letter">C</div>
+      <span class="cha-pill">Conhecimento</span>
+      <h3>O que você sabe</h3>
+      <p class="sub">Teoria que guia a prática</p>
+      <p>Conjunto de informações, conceitos e saberes técnicos. É o que se aprende em cursos, treinamentos e experiências.</p>
+      <ul class="cha-examples">
+        <li>Gestão de projetos e planejamento</li>
+        <li>Storytelling e comunicação executiva</li>
+        <li>Indicadores e dados em RH</li>
+      </ul>
+    </div>
+    <div class="cha-card h reveal">
+      <div class="cha-letter">H</div>
+      <span class="cha-pill">Habilidade</span>
+      <h3>O que você faz</h3>
+      <p class="sub">Teoria convertida em resultado</p>
+      <p>Capacidade de aplicar o conhecimento na prática com eficiência. É o saber fazer — transformar teoria em ação real.</p>
+      <ul class="cha-examples">
+        <li>Planejar projetos com começo, meio e fim</li>
+        <li>Construir materiais sem retrabalho</li>
+        <li>Usar dados para embasar decisões</li>
+      </ul>
+    </div>
+    <div class="cha-card a reveal">
+      <div class="cha-letter">A</div>
+      <span class="cha-pill">Atitude</span>
+      <h3>Como você age</h3>
+      <p class="sub">O motor por trás de tudo</p>
+      <p>Postura, comportamento e disposição com que a pessoa se relaciona com o trabalho, pessoas e desafios.</p>
+      <ul class="cha-examples">
+        <li>Disciplina de planejar antes de executar</li>
+        <li>Reduzir ansiedade, focar na consistência</li>
+        <li>Postura estratégica e protagonismo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight reveal">
+    <div class="insight-icon">💡</div>
+    <div class="insight-text">
+      <strong>A regra de ouro:</strong> Toda ação do seu PDI deve ser pensada a partir dessas três dimensões. O <strong>C</strong> diz o que aprender, o <strong>H</strong> diz o que praticar, o <strong>A</strong> diz como se comportar ao longo do caminho.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 70|20|10 -->
+<section id="modelo">
+  <div class="section-label">03 · Fontes de Aprendizado</div>
+  <h2 class="section-title">O modelo 70|20|10</h2>
+  <p class="section-sub">Entenda como você pode planejar cada uma de suas ações de desenvolvimento.</p>
+
+  <div class="modelo-grid">
+    <div class="modelo-block m70 reveal">
+      <div class="modelo-pct">
+        <span class="modelo-num">70%</span>
+        <span class="modelo-pct-label">Prática</span>
+      </div>
+      <div class="modelo-content">
+        <h3>Experiência prática</h3>
+        <span class="tag">Projetos, desafios, execução real</span>
+        <p>É onde a transformação de fato acontece. Assumir projetos além da zona de conforto, ter ownership de entregas e aprender com os erros é o principal motor de desenvolvimento.</p>
+      </div>
+      <div class="modelo-examples">
+        <p class="ex-label">Exemplos</p>
+        <ul>
+          <li>Estruturar um projeto do zero</li>
+          <li>Assumir papel de responsabilidade nova</li>
+          <li>Resolver problema sem ter a resposta</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modelo-block m20 reveal">
+      <div class="modelo-pct">
+        <span class="modelo-num">20%</span>
+        <span class="modelo-pct-label">Feedback</span>
+      </div>
+      <div class="modelo-content">
+        <h3>Mentorias e feedbacks</h3>
+        <span class="tag">Feedback, mentoria, shadowing, pares</span>
+        <p>O espelho do outro acelera o aprendizado. Ter alguém que observa seu trabalho, aponta pontos cegos e compartilha experiência é essencial para ir mais longe mais rápido.</p>
+      </div>
+      <div class="modelo-examples">
+        <p class="ex-label">Exemplos</p>
+        <ul>
+          <li>Checkpoints quinzenais com liderança</li>
+          <li>Feedback estruturado após entregas</li>
+          <li>Shadowing com alguém mais experiente</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modelo-block m10 reveal">
+      <div class="modelo-pct">
+        <span class="modelo-num">10%</span>
+        <span class="modelo-pct-label">Formal</span>
+      </div>
+      <div class="modelo-content">
+        <h3>Treinamento e estudos</h3>
+        <span class="tag">Cursos, livros, trilhas, workshops</span>
+        <p>O aprendizado formal é importante, mas só faz sentido quando conectado à prática. Um curso que não é aplicado na semana seguinte tem valor limitado.</p>
+      </div>
+      <div class="modelo-examples">
+        <p class="ex-label">Exemplos</p>
+        <ul>
+          <li>Curso de Gestão de Projetos</li>
+          <li>People Analytics básico</li>
+          <li>Storytelling executivo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO MATRIZ -->
+<section id="matriz">
+  <div class="section-label">04 · Cruzamento</div>
+  <h2 class="section-title">CHA × 70|20|10</h2>
+  <p class="section-sub">As três fontes alimentam as três dimensões — o que muda é o ênfase. Use essa matriz para montar ações mais inteligentes.</p>
+
+  <div class="matrix-wrap reveal">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>CHA / Fonte</th>
+          <th>70% — Prática</th>
+          <th>20% — Com outros</th>
+          <th>10% — Formal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cha-badge-sm" style="background:var(--pink)">C</span>Conhecimento</td>
+          <td>Criar template de projeto e one-pager em projetos reais</td>
+          <td>Checkpoint: validar estrutura ANTES de executar</td>
+          <td>Curso de Gestão de Projetos · People Analytics básico</td>
+        </tr>
+        <tr>
+          <td><span class="cha-badge-sm" style="background:var(--purple)">H</span>Habilidade</td>
+          <td>Planejar e executar projetos com começo, meio e fim</td>
+          <td>Pedir feedback sobre clareza dos materiais e storytelling</td>
+          <td>Aplicar framework aprendido no próximo projeto real</td>
+        </tr>
+        <tr>
+          <td><span class="cha-badge-sm" style="background:var(--orange)">A</span>Atitude</td>
+          <td>Definir Top 3 prioridades toda segunda; revisar antes de enviar</td>
+          <td>Shadowing com profissional mais estruturado do time</td>
+          <td>Storytelling executivo — mudar postura de execução</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight reveal">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-text">
+      <strong>Como usar na prática:</strong> Cada ação do PDI deve ter três informações: <strong>qual dimensão CHA desenvolve</strong>, <strong>qual fonte de aprendizado será usada</strong> e <strong>como o resultado será medido</strong>. Sem os três, a ação é incompleta.
+    </div>
+  </div>
+
+  <!-- COMO NÃO FAZER VS COMO FAZER -->
+  <div style="margin-top: 56px;">
+    <div class="section-label">06 · Boas práticas</div>
+    <h2 class="section-title" style="font-size:32px">Ações que funcionam</h2>
+    <p class="section-sub" style="margin-bottom:32px">A diferença entre uma ação genérica e uma que gera resultado real.</p>
+
+    <div class="compare-grid">
+      <div class="compare-row reveal">
+        <div class="compare-bad">
+          <div class="compare-label">❌ Como não fazer · C</div>
+          <div class="compare-text">Quero aprender mais sobre dados.</div>
+        </div>
+        <div class="compare-mid"><span class="arrow-icon">→</span></div>
+        <div class="compare-good">
+          <div class="compare-label">✓ Como fazer · C</div>
+          <div class="compare-text">Concluir o curso de SQL no DataCamp até julho e aplicar em pelo menos 2 análises no time.</div>
+        </div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-bad">
+          <div class="compare-label">❌ Como não fazer · H</div>
+          <div class="compare-text">Melhorar minha comunicação.</div>
+        </div>
+        <div class="compare-mid"><span class="arrow-icon">→</span></div>
+        <div class="compare-good">
+          <div class="compare-label">✓ Como fazer · H</div>
+          <div class="compare-text">Conduzir 1 apresentação de resultado para a liderança por trimestre, com storytelling e dados.</div>
+        </div>
+      </div>
+      <div class="compare-row reveal">
+        <div class="compare-bad">
+          <div class="compare-label">❌ Como não fazer · A</div>
+          <div class="compare-text">Ser mais proativo(a).</div>
+        </div>
+        <div class="compare-mid"><span class="arrow-icon">→</span></div>
+        <div class="compare-good">
+          <div class="compare-label">✓ Como fazer · A</div>
+          <div class="compare-text">Propor pelo menos 1 melhoria de processo por mês no squad, documentando o impacto esperado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO CRIAR PDI -->
+<section id="criar" style="background:var(--dark); padding: 0; max-width: 100%;">
+<div class="inner">
+  <div class="section-label">07 · Meu PDI</div>
+  <h2 class="section-title">Criar meu plano agora</h2>
+  <p class="section-sub">Preencha as informações abaixo e receba um template completo de PDI pronto para usar no Qulture Rocks.</p>
+
+  <!-- STEP 1: QUEM É VOCÊ -->
+  <div class="form-step">
+    <div class="step-header">
+      <div class="step-num pink">1</div>
+      <div>
+        <div class="step-title">Sobre você</div>
+        <div class="step-desc">Informações básicas para personalizar seu PDI</div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Seu nome</label>
+        <input type="text" id="f-nome" placeholder="Ex: Georgia Silva">
+      </div>
+      <div class="form-field">
+        <label>Cargo / Função</label>
+        <input type="text" id="f-cargo" placeholder="Ex: Analista de Negócios Pleno">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Área / Time</label>
+        <input type="text" id="f-area" placeholder="Ex: DHO, Comercial, Dados...">
+      </div>
+      <div class="form-field">
+        <label>Objetivo de carreira</label>
+        <select id="f-objetivo">
+          <option value="">Selecionar...</option>
+          <option>Promoção de nível</option>
+          <option>Transição de área</option>
+          <option>Desenvolvimento técnico</option>
+          <option>Desenvolvimento comportamental</option>
+          <option>Liderança</option>
+          <option>Outro</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Tipo do PDI</label>
+      <div class="radio-grid">
+        <div class="radio-opt">
+          <input type="radio" name="tipo" id="t-dev" value="Desenvolver">
+          <label for="t-dev">Desenvolver <span>Fortalecer habilidades ou comportamentos</span></label>
+        </div>
+        <div class="radio-opt">
+          <input type="radio" name="tipo" id="t-pot" value="Potencializar">
+          <label for="t-pot">Potencializar <span>Expandir e aprofundar um ponto forte</span></label>
+        </div>
+        <div class="radio-opt">
+          <input type="radio" name="tipo" id="t-amb" value="Desenvolver e Potencializar">
+          <label for="t-amb">Ambos <span>Desenvolver gaps e potencializar forças</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: O QUE DESENVOLVER -->
+  <div class="form-step">
+    <div class="step-header">
+      <div class="step-num orange">2</div>
+      <div>
+        <div class="step-title">O que você quer desenvolver</div>
+        <div class="step-desc">Baseado no seu feedback de avaliação ou no que você identificou como gap</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Descreva o que quer desenvolver</label>
+      <textarea id="f-dev" placeholder="Ex: Quero melhorar minha capacidade de estruturar projetos com mais clareza, reduzir retrabalho nas entregas e começar a usar dados para embasar minhas decisões e apresentações."></textarea>
+    </div>
+    <div class="form-field">
+      <label>Quais dimensões do CHA estão envolvidas?</label>
+      <div class="cha-check-grid">
+        <div class="cha-check c">
+          <input type="checkbox" id="cha-c" value="C">
+          <label for="cha-c"><span class="cha-dot" style="background:var(--pink)">C</span>Conhecimento — o que preciso aprender</label>
+        </div>
+        <div class="cha-check h">
+          <input type="checkbox" id="cha-h" value="H">
+          <label for="cha-h"><span class="cha-dot" style="background:var(--purple)">H</span>Habilidade — o que preciso praticar</label>
+        </div>
+        <div class="cha-check a">
+          <input type="checkbox" id="cha-a" value="A">
+          <label for="cha-a"><span class="cha-dot" style="background:var(--orange)">A</span>Atitude — como preciso agir diferente</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: AÇÕES -->
+  <div class="form-step">
+    <div class="step-header">
+      <div class="step-num purple">3</div>
+      <div>
+        <div class="step-title">Suas ações de desenvolvimento</div>
+        <div class="step-desc">Preencha pelo menos 1 ação por fonte (70%, 20%, 10%)</div>
+      </div>
+    </div>
+
+    <p style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:20px">Lembre: ação boa = <strong style="color:rgba(255,255,255,.7)">O quê</strong> + <strong style="color:rgba(255,255,255,.7)">Como</strong> + <strong style="color:rgba(255,255,255,.7)">Até quando</strong> + <strong style="color:rgba(255,255,255,.7)">Indicador</strong></p>
+
+    <div style="background:rgba(232,0,110,.08);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:24px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--pink);margin-bottom:14px">🔥 70% — Experiência prática</div>
+      <div class="form-field">
+        <label>Ação principal (o que vai fazer)</label>
+        <input type="text" id="a70-acao" placeholder="Ex: Estruturar todos os projetos com template padrão antes de executar">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Como será feito</label>
+          <input type="text" id="a70-como" placeholder="Ex: Criar template com objetivo, público, etapas e indicadores">
+        </div>
+        <div class="form-field">
+          <label>Prazo</label>
+          <input type="text" id="a70-prazo" placeholder="Ex: Mês 1">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Indicador de sucesso</label>
+        <input type="text" id="a70-kpi" placeholder="Ex: 100% dos projetos com template completo">
+      </div>
+    </div>
+
+    <div style="background:rgba(242,101,34,.08);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:24px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:14px">🤝 20% — Mentorias e feedbacks</div>
+      <div class="form-field">
+        <label>Ação principal</label>
+        <input type="text" id="a20-acao" placeholder="Ex: Checkpoints quinzenais com minha liderança">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Como será feito</label>
+          <input type="text" id="a20-como" placeholder="Ex: Validar estrutura dos projetos antes de executar">
+        </div>
+        <div class="form-field">
+          <label>Prazo / Frequência</label>
+          <input type="text" id="a20-prazo" placeholder="Ex: Quinzenal">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Indicador de sucesso</label>
+        <input type="text" id="a20-kpi" placeholder="Ex: 1 feedback estruturado a cada 15 dias">
+      </div>
+    </div>
+
+    <div style="background:rgba(107,33,168,.08);border-left:3px solid var(--purple);border-radius:0 10px 10px 0;padding:18px 20px">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#A855F7;margin-bottom:14px">📚 10% — Treinamento e estudo</div>
+      <div class="form-field">
+        <label>Conteúdo / Curso</label>
+        <input type="text" id="a10-acao" placeholder="Ex: Curso de Gestão de Projetos (ágil ou PM básico)">
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Como vai aplicar</label>
+          <input type="text" id="a10-como" placeholder="Ex: Aplicar no próximo projeto real na semana seguinte">
+        </div>
+        <div class="form-field">
+          <label>Prazo</label>
+          <input type="text" id="a10-prazo" placeholder="Ex: Mês 1–2">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Indicador de sucesso</label>
+        <input type="text" id="a10-kpi" placeholder="Ex: Framework aplicado em pelo menos 1 projeto">
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: CONTEXTO -->
+  <div class="form-step">
+    <div class="step-header">
+      <div class="step-num green">4</div>
+      <div>
+        <div class="step-title">Contexto adicional (opcional)</div>
+        <div class="step-desc">Pontos de melhoria identificados na avaliação</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Feedback recebido na avaliação</label>
+      <textarea id="f-feedback" placeholder="Ex: Precisa fortalecer a condução de projetos de forma mais estruturada, com maior foco e atenção aos detalhes, reduzindo retrabalhos..." style="min-height:70px"></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label>Nota entregas (1–5)</label>
+        <select id="f-nota-ent">
+          <option value="">—</option>
+          <option>1 — Abaixo</option>
+          <option>2 — Parcialmente</option>
+          <option>3 — Dentro das expectativas</option>
+          <option>4 — Acima</option>
+          <option>5 — Excepcional</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Nota comportamento (1–5)</label>
+        <select id="f-nota-comp">
+          <option value="">—</option>
+          <option>1 — Abaixo</option>
+          <option>2 — Parcialmente</option>
+          <option>3 — Dentro das expectativas</option>
+          <option>4 — Acima</option>
+          <option>5 — Excepcional</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="gerarTemplate()">
+    <span>✦</span> Gerar meu template de PDI
+  </button>
+
+  <!-- OUTPUT -->
+  <div id="output">
+    <div class="template-card">
+      <div class="template-header">
+        <div class="template-badge">✦ PDI Gerado · Yandeh</div>
+        <div class="template-name" id="out-nome">—</div>
+        <div class="template-role" id="out-cargo">—</div>
+        <div class="template-meta">
+          <span class="meta-pill"><strong>Tipo:</strong> <span id="out-tipo">—</span></span>
+          <span class="meta-pill"><strong>Área:</strong> <span id="out-area">—</span></span>
+          <span class="meta-pill"><strong>Objetivo:</strong> <span id="out-obj">—</span></span>
+          <span class="meta-pill"><strong>CHA:</strong> <span id="out-cha">—</span></span>
+        </div>
+      </div>
+
+      <div class="template-body">
+        <div style="margin-bottom:32px;">
+          <div class="dev-title">O que quero desenvolver</div>
+          <div style="background:var(--gray);border-radius:12px;padding:20px;font-size:14px;line-height:1.7;color:#333" id="out-dev">—</div>
+          <div id="out-feedback-block" style="display:none;margin-top:12px;background:#FFF5EE;border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 18px;font-size:13px;color:#7C2D12;line-height:1.6">
+            <strong style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:6px">Feedback da avaliação</strong>
+            <span id="out-feedback">—</span>
+          </div>
+        </div>
+
+        <div class="dev-title">Plano de Ação · CHA × 70|20|10</div>
+        <div class="action-cards" id="out-actions"></div>
+
+        <div class="kpi-section">
+          <div class="dev-title">Indicadores de sucesso</div>
+          <div class="kpi-grid" id="out-kpis"></div>
+        </div>
+      </div>
+
+      <div class="template-footer">
+        <div class="footer-msg">✦ Lembre: aplique o 10% na semana seguinte ao consumo. Não vale só assistir.</div>
+        <div style="display:flex;gap:10px">
+          <button class="btn-print" onclick="window.print()">🖨 Imprimir</button>
+          <button class="btn-copy" onclick="copiarTemplate()">Copiar texto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<footer>
+  Feito com carinho pelo time de <strong>DHO · Yandeh</strong> · Guia Prático de PDI
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+function getVal(id) { return (document.getElementById(id)?.value || '').trim(); }
+function getChecked(name) {
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+}
+function getChaChecked() {
+  return ['C','H','A'].filter(l => document.getElementById('cha-'+l.toLowerCase())?.checked);
+}
+function getTipo() {
+  const r = document.querySelector('input[name="tipo"]:checked');
+  return r ? r.value : '';
+}
+
+function gerarTemplate() {
+  const nome = getVal('f-nome') || 'Colaborador(a)';
+  const cargo = getVal('f-cargo') || 'Cargo não informado';
+  const area = getVal('f-area') || '—';
+  const objetivo = getVal('f-objetivo') || '—';
+  const tipo = getTipo() || 'Desenvolver';
+  const dev = getVal('f-dev') || '—';
+  const cha = getChaChecked();
+  const feedback = getVal('f-feedback');
+  const notaEnt = getVal('f-nota-ent');
+  const notaComp = getVal('f-nota-comp');
+
+  const a70 = { acao: getVal('a70-acao'), como: getVal('a70-como'), prazo: getVal('a70-prazo'), kpi: getVal('a70-kpi') };
+  const a20 = { acao: getVal('a20-acao'), como: getVal('a20-como'), prazo: getVal('a20-prazo'), kpi: getVal('a20-kpi') };
+  const a10 = { acao: getVal('a10-acao'), como: getVal('a10-como'), prazo: getVal('a10-prazo'), kpi: getVal('a10-kpi') };
+
+  // Fill header
+  document.getElementById('out-nome').textContent = nome;
+  document.getElementById('out-cargo').textContent = cargo + (notaEnt ? ` · Entregas: ${notaEnt.split('—')[0]}` : '') + (notaComp ? ` · Comportamento: ${notaComp.split('—')[0]}` : '');
+  document.getElementById('out-tipo').textContent = tipo;
+  document.getElementById('out-area').textContent = area;
+  document.getElementById('out-obj').textContent = objetivo;
+  document.getElementById('out-cha').textContent = cha.length ? cha.join(' + ') : 'C + H + A';
+  document.getElementById('out-dev').textContent = dev;
+
+  if (feedback) {
+    document.getElementById('out-feedback').textContent = feedback;
+    document.getElementById('out-feedback-block').style.display = 'block';
+  } else {
+    document.getElementById('out-feedback-block').style.display = 'none';
+  }
+
+  // Build actions
+  const actions = [
+    { pct: '70%', cls: 's70', label: 'Prática', ...a70, cha: cha.length ? cha : ['C','H','A'] },
+    { pct: '20%', cls: 's20', label: 'Feedback', ...a20, cha: cha.filter(c => c !== 'C').length ? cha.filter(c => c !== 'C') : ['H','A'] },
+    { pct: '10%', cls: 's10', label: 'Formal', ...a10, cha: cha.includes('C') ? ['C'] : ['C'] },
+  ];
+
+  const actionsHtml = actions.map(a => {
+    if (!a.acao) return '';
+    const badges = a.cha.map(l => `<span class="cha-b ${l}">${l}</span>`).join('');
+    return `
+      <div class="action-card">
+        <div class="action-src ${a.cls}">
+          <div style="font-size:22px;font-weight:700;color:#fff">${a.pct}</div>
+          <div class="action-src-label">${a.label}</div>
+        </div>
+        <div class="action-content">
+          <div class="action-top">
+            <div class="action-title-out">${a.acao}</div>
+            <div class="action-cha-badges">${badges}</div>
+          </div>
+          <div class="action-fields">
+            ${a.como ? `<div class="afield"><div class="afield-label">Como</div><div class="afield-val">${a.como}</div></div>` : ''}
+            ${a.prazo ? `<div class="afield"><div class="afield-label">Prazo</div><div class="afield-val">${a.prazo}</div></div>` : ''}
+            ${a.kpi ? `<div class="afield" style="grid-column: 1/-1"><div class="afield-label">Indicador</div><div class="afield-val">${a.kpi}</div></div>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).filter(Boolean).join('');
+  document.getElementById('out-actions').innerHTML = actionsHtml || '<p style="color:var(--mid);font-size:14px">Nenhuma ação preenchida.</p>';
+
+  // KPIs
+  const kpisArr = [
+    { icon: '📋', title: '% Projetos estruturados', desc: a70.kpi || 'Projetos com template completo antes de executar' },
+    { icon: '🔄', title: 'Redução de retrabalho', desc: a20.kpi || 'Feedback quinzenal da liderança sobre clareza' },
+    { icon: '📊', title: 'Uso de dados', desc: a10.kpi || 'Conteúdo aprendido aplicado no trabalho' },
+  ];
+  document.getElementById('out-kpis').innerHTML = kpisArr.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-icon">${k.icon}</div>
+      <div class="kpi-title">${k.title}</div>
+      <div class="kpi-desc">${k.desc}</div>
+    </div>`).join('');
+
+  // Show output
+  const output = document.getElementById('output');
+  output.style.display = 'block';
+  setTimeout(() => output.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+function copiarTemplate() {
+  const nome = document.getElementById('out-nome').textContent;
+  const cargo = document.getElementById('out-cargo').textContent;
+  const dev = document.getElementById('out-dev').textContent;
+
+  const acoes = Array.from(document.querySelectorAll('.action-card')).map(card => {
+    const pct = card.querySelector('.action-src div')?.textContent || '';
+    const titulo = card.querySelector('.action-title-out')?.textContent || '';
+    const campos = Array.from(card.querySelectorAll('.afield')).map(f =>
+      `  ${f.querySelector('.afield-label')?.textContent}: ${f.querySelector('.afield-val')?.textContent}`
+    ).join('\n');
+    return `[${pct}] ${titulo}\n${campos}`;
+  }).join('\n\n');
+
+  const texto = `PDI — ${nome}\n${cargo}\n\n=== O QUE QUERO DESENVOLVER ===\n${dev}\n\n=== PLANO DE AÇÃO ===\n${acoes}\n\n---\nGerado pelo Guia Prático de PDI · Yandeh`;
+
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copiado!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+</script>
+</body>
+</html>
