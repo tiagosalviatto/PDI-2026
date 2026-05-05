@@ -212,9 +212,9 @@ h2.section-title {
 .matrix th, .matrix td { padding: 16px 20px; text-align: left; font-size: 13px; }
 .matrix thead tr { border-bottom: 1px solid var(--border); }
 .matrix th { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-.matrix th:nth-child(1) { background: var(--dark); color: #fff; }
-.matrix th:nth-child(2) { background: var(--pink); color: #fff; }
-.matrix th:nth-child(3) { background: var(--purple); color: #fff; }
+.matrix th:nth-child(1) { background: var(--pink); color: #fff; }
+.matrix th:nth-child(2) { background: var(--purple); color: #fff; }
+.matrix th:nth-child(3) { background: var(--orange); color: #fff; }
 .matrix th:nth-child(4) { background: #6B21A8; color: #fff; }
 .matrix td { border-bottom: 1px solid var(--border); color: #333; line-height: 1.6; }
 .matrix td:nth-child(1) { font-weight: 600; background: var(--gray); }
@@ -1090,30 +1090,6 @@ function gerarTemplate() {
   const output = document.getElementById('output');
   output.style.display = 'block';
   setTimeout(() => output.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-}
-
-function copiarTemplate() {
-  const nome = document.getElementById('out-nome').textContent;
-  const cargo = document.getElementById('out-cargo').textContent;
-  const dev = document.getElementById('out-dev').textContent;
-
-  const acoes = Array.from(document.querySelectorAll('.action-card')).map(card => {
-    const pct = card.querySelector('.action-src div')?.textContent || '';
-    const titulo = card.querySelector('.action-title-out')?.textContent || '';
-    const campos = Array.from(card.querySelectorAll('.afield')).map(f =>
-      `  ${f.querySelector('.afield-label')?.textContent}: ${f.querySelector('.afield-val')?.textContent}`
-    ).join('\n');
-    return `[${pct}] ${titulo}\n${campos}`;
-  }).join('\n\n');
-
-  const texto = `PDI — ${nome}\n${cargo}\n\n=== O QUE QUERO DESENVOLVER ===\n${dev}\n\n=== PLANO DE AÇÃO ===\n${acoes}\n\n---\nGerado pelo Guia Prático de PDI · Yandeh`;
-
-  navigator.clipboard.writeText(texto).then(() => {
-    const btn = document.querySelector('.btn-copy');
-    const orig = btn.textContent;
-    btn.textContent = '✓ Copiado!';
-    setTimeout(() => btn.textContent = orig, 2000);
-  });
 }
 </script>
 </body>
