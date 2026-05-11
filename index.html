@@ -413,18 +413,20 @@ textarea { resize: vertical; min-height: 90px; }
   border-top: 1px solid var(--border);
 }
 .footer-msg { font-size: 13px; color: var(--mid); }
-.btn-print {
+.btn-cheatsheet {
+  background: var(--pink); color: #fff; border: none;
+  border-radius: 30px; padding: 10px 22px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-cheatsheet:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(232,0,110,.25); }
+.btn-qulture {
   background: var(--dark); color: #fff; border: none;
   border-radius: 30px; padding: 10px 22px; font-size: 13px; font-weight: 600;
   cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
   display: flex; align-items: center; gap: 8px;
 }
-.btn-print:hover { transform: translateY(-1px); }
-.btn-copy {
-  background: var(--pink); color: #fff; border: none;
-  border-radius: 30px; padding: 10px 22px; font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
-}
+.btn-qulture:hover { transform: translateY(-1px); background: #1a1a1a; }
 
 /* ─── FOOTER ─── */
 footer {
@@ -825,7 +827,8 @@ footer strong { color: #fff; }
     <p style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:20px">Lembre: ação boa = <strong style="color:rgba(255,255,255,.7)">O quê</strong> + <strong style="color:rgba(255,255,255,.7)">Como</strong> + <strong style="color:rgba(255,255,255,.7)">Até quando</strong> + <strong style="color:rgba(255,255,255,.7)">Indicador</strong></p>
 
     <div style="background:rgba(232,0,110,.08);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:24px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--pink);margin-bottom:14px">🔥 70% — Experiência prática</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--pink);margin-bottom:4px">🔥 70% — Experiência prática</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:14px">No Qulture, selecione o tipo <strong style="color:rgba(255,255,255,.75)">Desafio profissional</strong></div>
       <div class="form-field">
         <label>Ação principal (o que vai fazer)</label>
         <input type="text" id="a70-acao" placeholder="Ex: Estruturar todos os projetos com template padrão antes de executar">
@@ -847,7 +850,8 @@ footer strong { color: #fff; }
     </div>
 
     <div style="background:rgba(242,101,34,.08);border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:18px 20px;margin-bottom:24px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:14px">🤝 20% — Mentorias e feedbacks</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:4px">🤝 20% — Mentorias e feedbacks</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:14px">No Qulture, selecione o tipo <strong style="color:rgba(255,255,255,.75)">Mentoria e feedbacks</strong></div>
       <div class="form-field">
         <label>Ação principal</label>
         <input type="text" id="a20-acao" placeholder="Ex: Checkpoints quinzenais com minha liderança">
@@ -869,7 +873,8 @@ footer strong { color: #fff; }
     </div>
 
     <div style="background:rgba(107,33,168,.08);border-left:3px solid var(--purple);border-radius:0 10px 10px 0;padding:18px 20px">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#A855F7;margin-bottom:14px">📚 10% — Treinamento e estudo</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#A855F7;margin-bottom:4px">📚 10% — Treinamento e estudo</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:14px">No Qulture, selecione o tipo <strong style="color:rgba(255,255,255,.75)">Treinamento e estudo</strong></div>
       <div class="form-field">
         <label>Conteúdo / Curso</label>
         <input type="text" id="a10-acao" placeholder="Ex: Curso de Gestão de Projetos (ágil ou PM básico)">
@@ -971,8 +976,8 @@ footer strong { color: #fff; }
       <div class="template-footer">
         <div class="footer-msg">✦ Lembre: aplique o 10% na semana seguinte ao consumo. Não vale só assistir.</div>
         <div style="display:flex;gap:10px">
-          <button class="btn-print" onclick="window.print()">🖨 Imprimir</button>
-          <button class="btn-copy" onclick="copiarTemplate()">Copiar texto</button>
+          <button class="btn-cheatsheet" onclick="gerarColinha()">📋 Gerar colinha</button>
+          <button class="btn-qulture" onclick="abrirQulture()">↗ Abrir Qulture</button>
         </div>
       </div>
     </div>
@@ -1092,28 +1097,218 @@ function gerarTemplate() {
   setTimeout(() => output.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
-function copiarTemplate() {
-  const nome = document.getElementById('out-nome').textContent;
-  const cargo = document.getElementById('out-cargo').textContent;
-  const dev = document.getElementById('out-dev').textContent;
+// URL do Apps Script Web App (criada via Apps Script + planilha do Google Sheets).
+// Cole aqui a URL gerada ao publicar o script como Web App.
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx65GL-TL9yWVfnF4--1h2ZORdbSKdpMY1xSjivnnDUXHvkeJI8uSATcrtXoQIqUzSJCg/exec';
 
-  const acoes = Array.from(document.querySelectorAll('.action-card')).map(card => {
-    const pct = card.querySelector('.action-src div')?.textContent || '';
-    const titulo = card.querySelector('.action-title-out')?.textContent || '';
-    const campos = Array.from(card.querySelectorAll('.afield')).map(f =>
-      `  ${f.querySelector('.afield-label')?.textContent}: ${f.querySelector('.afield-val')?.textContent}`
-    ).join('\n');
-    return `[${pct}] ${titulo}\n${campos}`;
-  }).join('\n\n');
+function coletarDadosPDI() {
+  const cha = getChaChecked();
+  return {
+    timestamp: new Date().toISOString(),
+    nome: getVal('f-nome'),
+    cargo: getVal('f-cargo'),
+    area: getVal('f-area'),
+    objetivo: getVal('f-objetivo'),
+    tipo: getTipo(),
+    desenvolvimento: getVal('f-dev'),
+    cha: cha.length ? cha.join(' + ') : '',
+    feedback: getVal('f-feedback'),
+    notaEntregas: getVal('f-nota-ent'),
+    notaComportamento: getVal('f-nota-comp'),
+    a70: { acao: getVal('a70-acao'), como: getVal('a70-como'), prazo: getVal('a70-prazo'), kpi: getVal('a70-kpi') },
+    a20: { acao: getVal('a20-acao'), como: getVal('a20-como'), prazo: getVal('a20-prazo'), kpi: getVal('a20-kpi') },
+    a10: { acao: getVal('a10-acao'), como: getVal('a10-como'), prazo: getVal('a10-prazo'), kpi: getVal('a10-kpi') },
+  };
+}
 
-  const texto = `PDI — ${nome}\n${cargo}\n\n=== O QUE QUERO DESENVOLVER ===\n${dev}\n\n=== PLANO DE AÇÃO ===\n${acoes}\n\n---\nGerado pelo Guia Prático de PDI · Yandeh`;
+function formatarAcaoTexto(a) {
+  const partes = [];
+  if (a.como) partes.push(`Como: ${a.como}`);
+  if (a.prazo) partes.push(`Prazo: ${a.prazo}`);
+  if (a.kpi) partes.push(`Indicador de sucesso: ${a.kpi}`);
+  return partes.join('\n');
+}
 
-  navigator.clipboard.writeText(texto).then(() => {
-    const btn = document.querySelector('.btn-copy');
-    const orig = btn.textContent;
-    btn.textContent = '✓ Copiado!';
-    setTimeout(() => btn.textContent = orig, 2000);
+function enviarParaSheets(dados) {
+  if (!WEBHOOK_URL) {
+    console.warn('[PDI] WEBHOOK_URL não configurada — dados não foram enviados à planilha.');
+    return;
+  }
+  const payload = {
+    timestamp: dados.timestamp,
+    nome: dados.nome,
+    area: dados.area,
+    descricaoDesenvolvimento: dados.desenvolvimento,
+    cha: dados.cha,
+    acao70_acao: dados.a70.acao,
+    acao70_como: dados.a70.como,
+    acao70_prazo: dados.a70.prazo,
+    acao70_indicador: dados.a70.kpi,
+    acao20_acao: dados.a20.acao,
+    acao20_como: dados.a20.como,
+    acao20_prazo: dados.a20.prazo,
+    acao20_indicador: dados.a20.kpi,
+    acao10_acao: dados.a10.acao,
+    acao10_como: dados.a10.como,
+    acao10_prazo: dados.a10.prazo,
+    acao10_indicador: dados.a10.kpi,
+  };
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload),
+  }).catch(err => console.error('[PDI] Falha ao enviar para Sheets:', err));
+}
+
+function gerarColinha() {
+  const d = coletarDadosPDI();
+
+  enviarParaSheets(d);
+
+  const esc = s => (s || '').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const acaoDescricao70 = formatarAcaoTexto(d.a70);
+  const acaoDescricao20 = formatarAcaoTexto(d.a20);
+  const acaoDescricao10 = formatarAcaoTexto(d.a10);
+
+  const blocos = [
+    {
+      id: 'dev',
+      titulo: 'Desenvolvimento Yandeh',
+      subtitulo: 'No Qulture: clique em "Adicionar Desenvolvimento Yandeh" → Manual → Tema',
+      campos: [
+        { label: 'Tipo', valor: d.tipo || 'Desenvolver', tag: 'Radio no Qulture' },
+        { label: 'Desenvolvimento Yandeh (assunto livre)', valor: d.desenvolvimento.split('.')[0] || d.desenvolvimento || '—', tag: 'Campo: "Assunto livre"' },
+        { label: 'Descrição', valor: d.desenvolvimento || '—', tag: 'Campo: "Descrição"' },
+      ],
+      copyText: `Tipo: ${d.tipo || 'Desenvolver'}\nDesenvolvimento Yandeh: ${d.desenvolvimento.split('.')[0] || d.desenvolvimento}\nDescrição: ${d.desenvolvimento}`,
+    },
+    {
+      id: 'a70',
+      titulo: 'Ação 70% — Desafio profissional',
+      subtitulo: 'No Qulture: dentro do Desenvolvimento → Criar ação → tipo "Desafio profissional"',
+      campos: [
+        { label: 'Ação (nome)', valor: d.a70.acao || '—', tag: 'Campo: "Ação"' },
+        { label: 'Prazo', valor: d.a70.prazo || '—', tag: 'Campo: "Prazo"' },
+        { label: 'Descrição', valor: acaoDescricao70 || '—', tag: 'Campo: "Descrição"' },
+      ],
+      copyText: `Ação: ${d.a70.acao}\nPrazo: ${d.a70.prazo}\nDescrição: ${acaoDescricao70}`,
+    },
+    {
+      id: 'a20',
+      titulo: 'Ação 20% — Mentoria e feedbacks',
+      subtitulo: 'No Qulture: Criar ação → tipo "Mentoria e feedbacks"',
+      campos: [
+        { label: 'Ação (nome)', valor: d.a20.acao || '—', tag: 'Campo: "Ação"' },
+        { label: 'Prazo', valor: d.a20.prazo || '—', tag: 'Campo: "Prazo"' },
+        { label: 'Descrição', valor: acaoDescricao20 || '—', tag: 'Campo: "Descrição"' },
+      ],
+      copyText: `Ação: ${d.a20.acao}\nPrazo: ${d.a20.prazo}\nDescrição: ${acaoDescricao20}`,
+    },
+    {
+      id: 'a10',
+      titulo: 'Ação 10% — Treinamento e estudo',
+      subtitulo: 'No Qulture: Criar ação → tipo "Treinamento e estudo"',
+      campos: [
+        { label: 'Ação (nome)', valor: d.a10.acao || '—', tag: 'Campo: "Ação"' },
+        { label: 'Prazo', valor: d.a10.prazo || '—', tag: 'Campo: "Prazo"' },
+        { label: 'Descrição', valor: acaoDescricao10 || '—', tag: 'Campo: "Descrição"' },
+      ],
+      copyText: `Ação: ${d.a10.acao}\nPrazo: ${d.a10.prazo}\nDescrição: ${acaoDescricao10}`,
+    },
+  ];
+
+  const blocosHtml = blocos.map(b => `
+    <section class="bloco" data-id="${b.id}">
+      <header class="bloco-head">
+        <div>
+          <h2>${esc(b.titulo)}</h2>
+          <p class="hint">${esc(b.subtitulo)}</p>
+        </div>
+        <button class="btn-copy-bloco" data-text="${esc(b.copyText)}">Copiar bloco</button>
+      </header>
+      <div class="campos">
+        ${b.campos.map(c => `
+          <div class="campo">
+            <div class="campo-label">${esc(c.label)} <span class="tag">${esc(c.tag)}</span></div>
+            <div class="campo-valor">${esc(c.valor).replace(/\n/g, '<br>')}</div>
+            <button class="btn-copy-campo" data-text="${esc(c.valor)}">Copiar</button>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `).join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Colinha PDI — ${esc(d.nome || 'PDI')}</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', -apple-system, sans-serif; background: #f5f5f7; color: #1a1a1a; margin: 0; padding: 40px 20px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  .topo { background: #fff; border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+  .topo h1 { margin: 0 0 6px; font-size: 22px; }
+  .topo .meta { color: #666; font-size: 14px; }
+  .topo .aviso { margin-top: 16px; padding: 14px 18px; background: #FFF5EE; border-left: 3px solid #F26522; border-radius: 0 10px 10px 0; font-size: 13px; color: #7C2D12; line-height: 1.6; }
+  .bloco { background: #fff; border-radius: 16px; padding: 24px 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+  .bloco-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #eee; }
+  .bloco-head h2 { margin: 0 0 4px; font-size: 17px; color: #E8006E; }
+  .bloco-head .hint { margin: 0; font-size: 12px; color: #888; }
+  .campos { display: flex; flex-direction: column; gap: 14px; }
+  .campo { padding: 14px 16px; background: #fafafa; border-radius: 10px; position: relative; }
+  .campo-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #555; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .campo-label .tag { font-weight: 500; text-transform: none; letter-spacing: 0; color: #999; font-size: 10px; background: #ececec; padding: 2px 8px; border-radius: 10px; }
+  .campo-valor { font-size: 14px; color: #1a1a1a; line-height: 1.55; white-space: pre-wrap; }
+  .btn-copy-campo, .btn-copy-bloco { background: #1a1a1a; color: #fff; border: none; border-radius: 20px; padding: 6px 14px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all .15s; }
+  .btn-copy-bloco { background: #E8006E; padding: 8px 18px; font-size: 12px; flex-shrink: 0; }
+  .btn-copy-campo { position: absolute; top: 12px; right: 12px; }
+  .btn-copy-campo:hover, .btn-copy-bloco:hover { transform: translateY(-1px); }
+  .btn-copy-campo.ok, .btn-copy-bloco.ok { background: #16a34a !important; }
+  .rodape { text-align: center; color: #999; font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topo">
+      <h1>Colinha PDI · Pronta para colar no Qulture</h1>
+      <div class="meta"><strong>${esc(d.nome || '—')}</strong>${d.cargo ? ' · ' + esc(d.cargo) : ''}${d.area ? ' · ' + esc(d.area) : ''}</div>
+      <div class="aviso">
+        💡 Abra o Qulture em outra aba e siga a ordem dos blocos abaixo. Cada bloco tem um botão <strong>Copiar bloco</strong> (cola tudo) e cada campo tem o botão <strong>Copiar</strong> (cola individual).
+      </div>
+    </div>
+    ${blocosHtml}
+    <div class="rodape">Guia Prático de PDI · DHO Yandeh</div>
+  </div>
+<script>
+  document.querySelectorAll('.btn-copy-campo, .btn-copy-bloco').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const txt = btn.dataset.text || '';
+      navigator.clipboard.writeText(txt).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copiado';
+        btn.classList.add('ok');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('ok'); }, 1600);
+      });
+    });
   });
+<\/script>
+</body>
+</html>`;
+
+  const win = window.open('', '_blank');
+  if (!win) {
+    alert('Permita pop-ups para abrir a colinha em nova aba.');
+    return;
+  }
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+}
+
+function abrirQulture() {
+  window.open('https://app.qulture.rocks/', '_blank', 'noopener');
 }
 </script>
 </body>
